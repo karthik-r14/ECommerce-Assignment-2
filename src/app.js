@@ -9,7 +9,8 @@ var schema = buildSchema(`
         user(userId: String!): User
     },
     type Mutation {
-        editUserDetails(userId: String!, name: String!): User    
+        editUserDetails(userId: String!, name: String!): User 
+        createUser(userId: String!, name: String!, email: String!, address: String!): User   
     }
     type User {
         userId: String
@@ -32,9 +33,21 @@ var updateUserInfo = function (args) {
     return executeUserUpdateOperation(userId, updatedUserName);
 }
 
+var createUserInDb = function (args) {
+    config();
+    const userDocument = {
+        userId : args.userId,
+        name: args.name,
+        email: args.email,
+        address: args.address,
+    };
+    return executeUserCreateOperation(userDocument);
+}
+
 var root = {
     user: getUser,
-    editUserDetails: updateUserInfo
+    editUserDetails: updateUserInfo,
+    createUser: createUserInDb
 };
 
 // Create an express server and a GraphQL endpoint

@@ -12,6 +12,8 @@ export async function executeUserCreateOperation(user) {
         const db = mongoClient.db(DATABASE_NAME);
         const collection = db.collection(USER_COLLECTION_NAME);
         await createUserDocument(collection, user);
+        var newUser = await findUserById(collection, user.userId);
+        return newUser[0];
     } finally {
         await mongoClient.close();
     }
