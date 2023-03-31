@@ -6,14 +6,13 @@ type Query {
 },
 type Mutation {
     editProductDetails(productId: String!, title: String!): Product
-    createProduct(productId: String!, title: String!, author: String!, desc: String!, topic: String!): Product
+    createProduct(productId: String!, name: String!, desc: String!, price: String!): Product
     deleteProduct(productId: String!): Product
 }
 type Product {
     productId: String
-    title: String
-    author: String
+    name: String
     desc: String
-    topic: String
+    price: String
 }
 `);

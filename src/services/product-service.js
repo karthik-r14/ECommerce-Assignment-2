@@ -34,14 +34,14 @@ export async function executeProductCreateOperation(product) {
     }
 }
 
-export async function executeProductUpdateOperation(productId, newTitle) {
+export async function executeProductUpdateOperation(productId, newName) {
     const uri = process.env.DB_URI;
     let mongoClient;
     try {
         mongoClient = await connectToCluster(uri);
         const db = mongoClient.db(DATABASE_NAME);
         const collection = db.collection(PRODUCT_COLLECTION_NAME);
-        await updateProductById(collection, productId, newTitle);
+        await updateProductById(collection, productId, newName);
         var product = await findProductById(collection, productId);
         return product[0];
     } finally {
@@ -88,13 +88,13 @@ export async function createProductDocument(collection, newProduct) {
     await collection.insertOne(newProduct);
 }
 
-export async function updateProductById(collection, givenProductId, updatedTitle) {
+export async function updateProductById(collection, givenProductId, updatedName) {
     await collection.updateOne(
         { productId: givenProductId },
-        { $set: { Title: updatedTitle } }
+        { $set: { name: updatedName } }
     );
 }
 
-export async function deleteProductDocument(collection, productId) {
-    await collection.delete({ productId })
+export async function deleteProductDocument(collection, prodId) {
+    await collection.deleteOne({ productId: prodId })
 }

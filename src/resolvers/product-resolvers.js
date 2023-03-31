@@ -10,26 +10,23 @@ export var getProduct = function (args) {
 export var updateProductInfo = function (args) {
     config();
     var productId = args.productId;
-    var productTitle = args.title;
-    return executeUserUpdateOperation(productId, productTitle);
+    var productName = args.name;
+    return executeProductUpdateOperation(productId, productName);
 }
 
 export var createProductInDb = function (args) {
     config();
     const productDocument = {
         productId: args.productId,
-        title: args.title,
-        author: args.author,
+        name: args.name,
         desc: args.desc,
-        topic: args.topic
+        price: args.price
     };
     return executeProductCreateOperation(productDocument);
 }
 
 export var deleteProductInDb = function (args) {
     config();
-    const productDocument = {
-        productId: args.productId
-    };
+    var productId = args.productId
     return executeProductDeleteOperation(productId);
 }
