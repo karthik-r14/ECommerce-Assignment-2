@@ -1,11 +1,19 @@
 import { config } from 'dotenv';
-import { executeProductReadOperation, executeProductCreateOperation, executeProductUpdateOperation, executeProductDeleteOperation } from '../services/product-service.js';
+import { executeProductReadOperation, executeReadAllProductsOperation, executeProductCreateOperation, executeProductUpdateOperation, executeProductDeleteOperation } from '../services/product-service.js';
 
 export var getProduct = function (args) {
     config();
     var productId = args.productId;
     return executeProductReadOperation(productId);
 }
+
+
+export var getAllProducts = function (args) {
+    config();
+    var productId = args.productId
+    return executeReadAllProductsOperation(productId);
+}
+
 
 export var updateProductInfo = function (args) {
     config();

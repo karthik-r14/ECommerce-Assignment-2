@@ -18,6 +18,20 @@ export async function executeProductReadOperation(productId) {
     }
 }
 
+export async function executeReadAllProductsOperation(productId) {
+    const uri = process.env.DB_URI;
+    let mongoClient;
+    try {
+        mongoClient = await connectToCluster(uri);
+        const db = mongoClient.db(DATABASE_NAME);
+        const collection = db.collection(PRODUCT_COLLECTION_NAME);
+        var products = await findAllProducts(collection, productId);
+        return products;
+    } finally {
+        await mongoClient.close();
+    }
+}
+
 export async function executeProductCreateOperation(product) {
     const uri = process.env.DB_URI;
     let mongoClient;
@@ -80,9 +94,21 @@ export async function connectToCluster(uri) {
 
 
 export async function findProductById(collection, productId) {
-    var Product = await collection.find({ productId }).toArray();
-    return Product;
+    var product = await collection.find({ productId }).toArray();
+    return product;
 }
+
+export async function findAllProducts(collection, productId) {
+    if (productId == "") {
+        var products = await collection.find().toArray();
+        return products;
+    }
+    else {
+        var products = await findProductById(collection, productId);
+        return products;
+    }
+}
+
 
 export async function createProductDocument(collection, newProduct) {
     await collection.insertOne(newProduct);

@@ -3,6 +3,7 @@ import { buildSchema } from 'graphql';
 export var productSchema = buildSchema(`
 type Query {
     product(productId: String!): Product
+    browseAllProducts(productId: String): [Product]
 },
 type Mutation {
     editProductDetails(productId: String!, title: String!): Product
