@@ -1,5 +1,7 @@
 import { config } from 'dotenv';
 import { executeCreateProductInCartOperation, executeDeleteProductInCartOperation, executeUserCreateOperation, executeUserReadOperation, executeUserUpdateOperation } from '../services/user-service.js';
+import { uuid } from 'uuidv4';
+
 
 export var getUser = function (args) {
     config();
@@ -17,7 +19,7 @@ export var updateUserInfo = function (args) {
 export var createUserInDb = function (args) {
     config();
     const userDocument = {
-        userId: args.userId,
+        userId: uuid(),
         name: args.name,
         email: args.email,
         address: args.address,

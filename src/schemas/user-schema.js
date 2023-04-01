@@ -6,7 +6,7 @@ export var userSchema = buildSchema(`
     },
     type Mutation {
         editUserDetails(userId: String!, name: String!): User 
-        createUser(userId: String!, name: String!, email: String!, address: String!): User
+        createUser(name: String!, email: String!, address: String!): User
         addProductToUserCart(userId: String!, productId: String!): User,
         removeProductFromUserCart(userId: String!, productId: String!): User   
     }

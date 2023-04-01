@@ -1,5 +1,6 @@
 import { config } from 'dotenv';
 import { executeProductReadOperation, executeReadAllProductsOperation, executeProductCreateOperation, executeProductUpdateOperation, executeProductDeleteOperation } from '../services/product-service.js';
+import { uuid } from 'uuidv4';
 
 export var getProduct = function (args) {
     config();
@@ -25,7 +26,7 @@ export var updateProductInfo = function (args) {
 export var createProductInDb = function (args) {
     config();
     const productDocument = {
-        productId: args.productId,
+        productId: uuid(),
         name: args.name,
         desc: args.desc,
         price: args.price
