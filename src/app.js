@@ -1,6 +1,6 @@
 import express from 'express';
 import { graphqlHTTP } from 'express-graphql';
-import { createProductInUserCart, getUser, updateUserInfo, createUserInDb } from './resolvers/user-resolvers.js'
+import { createProductInUserCart, deleteProductFromUserCart, getUser, updateUserInfo, createUserInDb } from './resolvers/user-resolvers.js'
 import { getProduct, getAllProducts, updateProductInfo, createProductInDb, deleteProductInDb } from './resolvers/product-resolvers.js'
 import { userSchema } from './schemas/user-schema.js';
 import { productSchema } from './schemas/product-schema.js';
@@ -15,7 +15,8 @@ var root = {
     editProductDetails: updateProductInfo,
     createProduct: createProductInDb,
     deleteProduct: deleteProductInDb,
-    addProductToUserCart: createProductInUserCart
+    addProductToUserCart: createProductInUserCart,
+    removeProductFromUserCart: deleteProductFromUserCart
 };
 
 const mergedSchema = mergeSchemas({
