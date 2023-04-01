@@ -109,7 +109,6 @@ export async function findAllProducts(collection, productId) {
     }
 }
 
-
 export async function createProductDocument(collection, newProduct) {
     await collection.insertOne(newProduct);
 }

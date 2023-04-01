@@ -6,12 +6,14 @@ export var userSchema = buildSchema(`
     },
     type Mutation {
         editUserDetails(userId: String!, name: String!): User 
-        createUser(userId: String!, name: String!, email: String!, address: String!): User   
+        createUser(userId: String!, name: String!, email: String!, address: String!): User
+        addProductToUserCart(userId: String!, productId: String!): User   
     }
     type User {
         userId: String
         name: String
         email: String
         address: String
+        cart: [String]
     }
 `);

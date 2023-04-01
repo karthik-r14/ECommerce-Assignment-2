@@ -1,5 +1,5 @@
 import { config } from 'dotenv';
-import { executeUserCreateOperation, executeUserReadOperation, executeUserUpdateOperation } from '../services/user-service.js';
+import { executeCreateProductInCartOperation, executeUserCreateOperation, executeUserReadOperation, executeUserUpdateOperation } from '../services/user-service.js';
 
 export var getUser = function (args) {
     config();
@@ -21,6 +21,15 @@ export var createUserInDb = function (args) {
         name: args.name,
         email: args.email,
         address: args.address,
+        cart: []
     };
     return executeUserCreateOperation(userDocument);
+}
+
+export var createProductInUserCart = function (args) {
+    config();
+    var userId = args.userId;
+    var productId = args.productId;
+
+    return executeCreateProductInCartOperation(userId, productId);
 }
