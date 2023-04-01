@@ -23,7 +23,8 @@ export var createUserInDb = function (args) {
         name: args.name,
         email: args.email,
         address: args.address,
-        cart: []
+        cart: [],
+        orders: []
     };
     return executeUserCreateOperation(userDocument);
 }

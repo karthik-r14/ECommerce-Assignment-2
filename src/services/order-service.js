@@ -1,5 +1,5 @@
 import { MongoClient } from 'mongodb';
-import { updateUserCartById } from '../services/user-service.js';
+import { updateUserCartAndOrdersById } from '../services/user-service.js';
 
 const DATABASE_NAME = 'E-Commerce-Database';
 const ORDER_COLLECTION_NAME = 'orders';
@@ -14,7 +14,7 @@ export async function executeOrderCreateOperation(order) {
         const collection = db.collection(ORDER_COLLECTION_NAME);
         await createOrderDocument(collection, order);
         var newOrder = await findOrderById(collection, order.orderId);
-        await removeProductsFromUsersCartUponOrderCreation(db, order.userId);
+        await removeProductsFromUsersCartUponOrderCreation(db, order.userId, order.orderId);
         return newOrder[0];
     } finally {
         await mongoClient.close();
@@ -46,8 +46,8 @@ export async function findOrderById(collection, orderId) {
     return order;
 }
 
-export async function removeProductsFromUsersCartUponOrderCreation(db, userId) {
+export async function removeProductsFromUsersCartUponOrderCreation(db, userId, orderId) {
     const USER_COLLECTION_NAME = 'users';
     const collection = db.collection(USER_COLLECTION_NAME);
-    await updateUserCartById(collection, userId, [])
+    await updateUserCartAndOrdersById(collection, userId, [], orderId)
 }

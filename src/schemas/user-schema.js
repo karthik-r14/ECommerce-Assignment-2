@@ -16,5 +16,6 @@ export var userSchema = buildSchema(`
         email: String
         address: String
         cart: [String]
+        orders: [String]
     }
 `);

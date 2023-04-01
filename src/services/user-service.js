@@ -87,6 +87,16 @@ export async function updateUserCartById(collection, givenUserId, updatedUserCar
     );
 }
 
+export async function updateUserCartAndOrdersById(collection, givenUserId, updatedUserCart, orderId) {
+    var user = await findUserById(collection, givenUserId);
+    var listOfOrderids = user[0].orders;
+
+    await collection.updateOne(
+        { userId: givenUserId },
+        { $set: { cart: updatedUserCart, orders: listOfOrderids.concat(orderId) } }
+    );
+}
+
 export async function executeCreateProductInCartOperation(userId, productId) {
     const uri = process.env.DB_URI;
     let mongoClient;
